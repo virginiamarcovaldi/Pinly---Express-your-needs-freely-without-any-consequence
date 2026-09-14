@@ -1,0 +1,105 @@
+// Pinly data model
+// Three boards, one anonymous voice: Classroom (-> teacher), School (-> student rep), Wellbeing (-> counselor)
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  STUDENT_REP
+  COUNSELOR
+}
+
+enum BoardType {
+  CLASSROOM
+  SCHOOL
+  WELLBEING
+}
+
+enum NoteColor {
+  YELLOW
+  BLUE
+  PINK
+  GREEN
+  ORANGE
+}
+
+model School {
+  id        String        @id @default(cuid())
+  name      String
+  // Fictitious school email domain used to route sign-ups to this school, e.g. "lincoln.edu"
+  domain    String        @unique
+  createdAt DateTime      @default(now())
+  classes   SchoolClass[]
+  users     User[]
+  boards    Board[]
+}
+
+model SchoolClass {
+  id       String  @id @default(cuid())
+  name     String
+  schoolId String
+  school   School  @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  users    User[]
+  boards   Board[]
+
+  @@unique([schoolId, name])
+}
+
+model User {
+  id           String       @id @default(cuid())
+  email        String       @unique
+  // Demo-only: hashed on first sign-up but never checked on later logins (see lib/auth.ts).
+  passwordHash String
+  role         Role
+  displayName  String
+  schoolId     String
+  school       School       @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  classId      String?
+  schoolClass  SchoolClass? @relation(fields: [classId], references: [id], onDelete: SetNull)
+  notes        Note[]       @relation("AuthoredNotes")
+  replies      Reply[]
+  createdAt    DateTime     @default(now())
+}
+
+model Board {
+  id          String       @id @default(cuid())
+  type        BoardType
+  schoolId    String
+  school      School       @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  // Only set (and only meaningful) for CLASSROOM boards.
+  classId     String?
+  schoolClass SchoolClass? @relation(fields: [classId], references: [id], onDelete: Cascade)
+  notes       Note[]
+
+  @@unique([schoolId, type, classId])
+}
+
+model Note {
+  id        String    @id @default(cuid())
+  boardId   String
+  board     Board     @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User      @relation("AuthoredNotes", fields: [authorId], references: [id], onDelete: Cascade)
+  color     NoteColor
+  text      String
+  createdAt DateTime  @default(now())
+  replies   Reply[]
+}
+
+model Reply {
+  id        String   @id @default(cuid())
+  noteId    String
+  note      Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  text      String
+  createdAt DateTime @default(now())
+}
