@@ -86,7 +86,7 @@ app/
   (app)/                   authenticated shell (nav, logout)
     layout.tsx
     board/[type]/          Classroom / School / Wellbeing board pages
-    my-notes/               a student's own post-its across all boards
+    my-board/               everyone's personal "Received / Sent" pinboard
 components/                 Postit, NoteCard, NewNoteForm, Navbar, LoginForm
 lib/                        auth/session, permissions, Prisma client, helpers
 prisma/                     schema, migrations, seed script

@@ -16,13 +16,11 @@ export function Navbar({
   roleLabel,
   className,
   boardTabs,
-  showMyNotes,
 }: {
   displayName: string;
   roleLabel: string;
   className?: string | null;
   boardTabs: BoardSlug[];
-  showMyNotes: boolean;
 }) {
   const pathname = usePathname();
 
@@ -49,18 +47,16 @@ export function Navbar({
                 </Link>
               );
             })}
-            {showMyNotes && (
-              <Link
-                href="/my-notes"
-                className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
-                  pathname === "/my-notes"
-                    ? "bg-brand-navy text-white"
-                    : "text-brand-navy/70 hover:bg-brand-navy/5"
-                }`}
-              >
-                My notes
-              </Link>
-            )}
+            <Link
+              href="/my-board"
+              className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
+                pathname === "/my-board"
+                  ? "bg-brand-navy text-white"
+                  : "text-brand-navy/70 hover:bg-brand-navy/5"
+              }`}
+            >
+              My board
+            </Link>
           </nav>
         </div>
 

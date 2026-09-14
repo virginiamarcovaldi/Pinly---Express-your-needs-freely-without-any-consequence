@@ -7,7 +7,7 @@ export async function proxy(request: NextRequest) {
   const token = request.cookies.get(SESSION_COOKIE_NAME)?.value;
   const session = token ? await verifySessionToken(token) : null;
 
-  const isProtected = pathname.startsWith("/board") || pathname.startsWith("/my-notes");
+  const isProtected = pathname.startsWith("/board") || pathname.startsWith("/my-board");
 
   if (isProtected && !session) {
     const url = new URL("/login", request.url);
@@ -23,5 +23,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/board/:path*", "/my-notes/:path*", "/login"],
+  matcher: ["/board/:path*", "/my-board/:path*", "/login"],
 };

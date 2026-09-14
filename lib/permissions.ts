@@ -30,6 +30,20 @@ export function staffRoleForBoardType(type: BoardType): Role {
   }
 }
 
+/** The inverse of staffRoleForBoardType: which board a staff role owns. */
+export function boardTypeForStaffRole(role: Role): BoardType {
+  switch (role) {
+    case "TEACHER":
+      return "CLASSROOM";
+    case "STUDENT_REP":
+      return "SCHOOL";
+    case "COUNSELOR":
+      return "WELLBEING";
+    case "STUDENT":
+      throw new Error("Students don't own a board.");
+  }
+}
+
 export function boardLabel(type: BoardType): string {
   switch (type) {
     case "CLASSROOM":
