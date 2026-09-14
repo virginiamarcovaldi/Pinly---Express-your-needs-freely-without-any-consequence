@@ -47,12 +47,22 @@ Password for all of them: `demo1234` (or literally anything).
 ```bash
 npm install
 cp .env.example .env        # then set SESSION_SECRET to a random string
+npx prisma generate         # generate the Prisma client (also runs on install)
 npx prisma migrate deploy   # create the SQLite database
 npx prisma db seed          # load the demo school + accounts
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+> **Newer npm versions (11+) may block install scripts** for security,
+> printing `npm warn install-scripts` and skipping the automatic
+> `prisma generate` + native `better-sqlite3` build. If `npm install` warns
+> about this, either run `npx prisma generate` yourself (as above — this
+> always works, it doesn't depend on install scripts) or approve the
+> scripts as npm suggests (`npm install-scripts approve <pkg>` for each
+> package it lists, then `npm install` again) so `better-sqlite3`'s native
+> binding gets built too.
 
 Generate a session secret with:
 
