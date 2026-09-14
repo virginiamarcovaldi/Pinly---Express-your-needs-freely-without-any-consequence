@@ -40,12 +40,4 @@ export function Postit({
   );
 }
 
-export const NOTE_COLORS: NoteColor[] = ["YELLOW", "BLUE", "PINK", "GREEN", "ORANGE"];
-
-export const NOTE_COLOR_SWATCH: Record<NoteColor, string> = {
-  YELLOW: "bg-yellow-300",
-  BLUE: "bg-sky-300",
-  PINK: "bg-pink-300",
-  GREEN: "bg-lime-300",
-  ORANGE: "bg-orange-300",
-};
+export { NOTE_COLORS } from "@/lib/colors";

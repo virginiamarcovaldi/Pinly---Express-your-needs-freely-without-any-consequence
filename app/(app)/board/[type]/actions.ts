@@ -5,7 +5,7 @@ import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { getOrCreateBoard } from "@/lib/boards";
 import { canPostToBoard, canReplyToNote, slugToBoardType } from "@/lib/permissions";
-import type { NoteColor } from "@/lib/generated/prisma/client";
+import { pickNoteColor } from "@/lib/colors";
 
 const MAX_NOTE_LENGTH = 500;
 const MAX_REPLY_LENGTH = 500;
@@ -22,11 +22,7 @@ async function boardForSlug(schoolId: string, slug: string, classId: string | nu
   });
 }
 
-export async function createNote(
-  boardSlug: string,
-  color: NoteColor,
-  text: string
-): Promise<ActionResult> {
+export async function createNote(boardSlug: string, text: string): Promise<ActionResult> {
   const session = await getSession();
   if (!session) return { ok: false, error: "You need to log in again." };
 
@@ -41,6 +37,7 @@ export async function createNote(
     return { ok: false, error: "You can't post to this board." };
   }
 
+  const color = pickNoteColor(session.uid, board.type);
   await prisma.note.create({
     data: { boardId: board.id, authorId: session.uid, color, text: trimmed },
   });
@@ -67,7 +64,7 @@ export async function createReply(
   const board = await boardForSlug(session.schoolId, boardSlug, session.classId);
   if (!board) return { ok: false, error: "Board not found." };
 
-  const note = await prisma.note.findUnique({ where: { id: noteId } });
+  const note = await prisma.note.findUnique({ where: { id: noteId }, include: { replies: true } });
   if (!note || note.boardId !== board.id) return { ok: false, error: "Note not found." };
 
   if (!canReplyToNote(session, board, note)) {

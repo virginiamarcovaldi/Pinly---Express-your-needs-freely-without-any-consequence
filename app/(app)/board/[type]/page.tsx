@@ -15,7 +15,7 @@ import {
 } from "@/lib/permissions";
 import { defaultPathForRole } from "@/lib/auth";
 import { markSeen } from "@/lib/notifications";
-import { formatRelativeTime } from "@/lib/time";
+import { formatDayTime, formatRelativeTime } from "@/lib/time";
 import { CorkBoard } from "@/components/CorkBoard";
 import { postitRotation } from "@/components/Postit";
 import { NewNoteForm } from "@/components/NewNoteForm";
@@ -91,8 +91,7 @@ export default async function BoardPage({
     id: note.id,
     color: note.color,
     text: note.text,
-    timeLabel: formatRelativeTime(note.createdAt),
-    isOwn: note.authorId === session.uid,
+    timeLabel: formatDayTime(note.createdAt),
     rotation: postitRotation(index),
     canReply: canReplyToNote(session, board, note),
     replies: note.replies.map((reply) => ({

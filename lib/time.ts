@@ -1,3 +1,11 @@
+/** e.g. "Sep 14, 2:34 PM" — used under each post-it instead of a relative time. */
+export function formatDayTime(input: Date | string): string {
+  const date = typeof input === "string" ? new Date(input) : input;
+  const datePart = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(date);
+  const timePart = new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit" }).format(date);
+  return `${datePart}, ${timePart}`;
+}
+
 export function formatRelativeTime(input: Date | string): string {
   const date = typeof input === "string" ? new Date(input) : input;
   const seconds = Math.max(0, Math.floor((Date.now() - date.getTime()) / 1000));

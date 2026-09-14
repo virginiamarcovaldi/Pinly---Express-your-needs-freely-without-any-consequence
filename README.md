@@ -18,12 +18,16 @@ Next.js, Prisma and SQLite.
 Every post-it is anonymous. A student only ever sees their **own** post-its
 (never other students') plus the replies to them, all on their personal
 ["My board"](app/(app)/my-board/page.tsx) — the board pages themselves are
-write-only for students (just the composer). Staff see every post-it
-pinned to their board, always as "Anonymous", and can reply; a student can
-reply back on their own note to continue that conversation. Everyone else
-just sees "Anonymous" and the staff role that answered ("Teacher", "Student
-Rep", "Counselor"). A red badge on the nav shows unread replies/post-its
-since a user's last visit.
+write-only for students (just the composer, with a confirmation once it's
+pinned). Staff see every post-it pinned to their board and can reply; a
+student can reply back **only after** receiving an answer, to continue that
+specific conversation — never to their own unanswered note. Post-it colors
+are assigned automatically per student per board (same student, same board
+→ always the same color; different students/boards → different colors) so
+patterns are visible without ever identifying anyone. A red badge on the
+nav shows unread replies/post-its since a user's last visit. Visiting
+`/login` always logs out whoever was signed in first, so switching between
+demo accounts is a single click.
 
 ## Login
 

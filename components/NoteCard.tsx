@@ -19,7 +19,6 @@ export type NoteCardData = {
   color: NoteColor;
   text: string;
   timeLabel: string;
-  isOwn: boolean;
   rotation: string;
   replies: ReplyData[];
   canReply: boolean;
@@ -52,9 +51,7 @@ export function NoteCard({ note, boardSlug }: { note: NoteCardData; boardSlug: s
     <div className="flex flex-col">
       <Postit color={note.color} rotation={note.rotation} className="min-h-32">
         <p className="text-sm text-slate-800 whitespace-pre-wrap break-words">{note.text}</p>
-        <p className="text-[11px] text-slate-500 mt-3">
-          {note.isOwn ? "You" : "Anonymous"} · {note.timeLabel}
-        </p>
+        <p className="text-[11px] text-slate-500 mt-3">{note.timeLabel}</p>
       </Postit>
 
       {(note.replies.length > 0 || note.canReply) && (

@@ -3,7 +3,7 @@ import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { boardTypeForStaffRole, boardTypeToSlug, canReplyToNote, roleLabel, staffRoleForBoardType } from "@/lib/permissions";
 import { markSeen } from "@/lib/notifications";
-import { formatRelativeTime } from "@/lib/time";
+import { formatDayTime, formatRelativeTime } from "@/lib/time";
 import { CorkBoard } from "@/components/CorkBoard";
 import { postitRotation } from "@/components/Postit";
 import { NoteCard, type NoteCardData } from "@/components/NoteCard";
@@ -30,8 +30,7 @@ export default async function MyBoardPage() {
     id: note.id,
     color: note.color,
     text: note.text,
-    timeLabel: formatRelativeTime(note.createdAt),
-    isOwn: true,
+    timeLabel: formatDayTime(note.createdAt),
     rotation: postitRotation(index),
     canReply: canReplyToNote(session, note.board, note),
     boardSlug: boardTypeToSlug(note.board.type),
