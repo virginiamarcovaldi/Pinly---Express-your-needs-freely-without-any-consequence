@@ -39,7 +39,10 @@ export default async function BoardPage({
   }
 
   if (boardType === "CLASSROOM" && !session.classId) {
-    redirect(defaultPathForRole(session.role));
+    // defaultPathForRole(STUDENT) is /board/classroom itself, so redirecting
+    // there would loop forever for a student with no class on their
+    // session — send them to re-authenticate instead.
+    redirect("/login");
   }
 
   const board = await getOrCreateBoard(prisma, {

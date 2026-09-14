@@ -13,6 +13,9 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     where: { id: session.uid },
     include: { schoolClass: true },
   });
+  // proxy.ts already checks the session's user still exists in the database
+  // and clears the cookie otherwise (Server Components can't mutate cookies
+  // themselves), so this should be unreachable — kept only as a fallback.
   if (!user) redirect("/login");
 
   const boardTabs = boardsForRole(user.role);
