@@ -69,7 +69,7 @@ export async function createReply(
   const note = await prisma.note.findUnique({ where: { id: noteId } });
   if (!note || note.boardId !== board.id) return { ok: false, error: "Note not found." };
 
-  if (!canReplyToNote(session, board, note)) {
+  if (!canReplyToNote(session, board)) {
     return { ok: false, error: "You can't reply to this note." };
   }
 

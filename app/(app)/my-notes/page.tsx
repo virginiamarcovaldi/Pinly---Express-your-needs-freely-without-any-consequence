@@ -26,7 +26,7 @@ export default async function MyNotesPage() {
       timeLabel: formatRelativeTime(note.createdAt),
       isOwn: true,
       rotation: postitRotation(index),
-      canReply: canReplyToNote(session, note.board, note),
+      canReply: canReplyToNote(session, note.board),
       replies: note.replies.map((reply) => ({
         id: reply.id,
         text: reply.text,

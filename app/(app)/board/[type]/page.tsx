@@ -63,7 +63,7 @@ export default async function BoardPage({
     timeLabel: formatRelativeTime(note.createdAt),
     isOwn: note.authorId === session.uid,
     rotation: postitRotation(index),
-    canReply: canReplyToNote(session, board, note),
+    canReply: canReplyToNote(session, board),
     replies: note.replies.map((reply) => ({
       id: reply.id,
       text: reply.text,
