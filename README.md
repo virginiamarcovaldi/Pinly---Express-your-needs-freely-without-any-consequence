@@ -55,6 +55,8 @@ Password for all of them: `demo1234` (or literally anything).
 ## Getting started
 
 ```bash
+git clone https://github.com/virginiamarcovaldi/Pinly.git
+cd Pinly
 npm install
 cp .env.example .env        # then set SESSION_SECRET to a random string
 npx prisma generate         # generate the Prisma client (also runs on install)
