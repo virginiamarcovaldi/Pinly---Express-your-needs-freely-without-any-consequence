@@ -99,6 +99,16 @@ prisma/                     schema, migrations, seed script
 [`lib/permissions.ts`](lib/permissions.ts): who can view a board, who can
 post to it, and who can reply to a given note.
 
+A separate `Lead` model captures emails submitted through the landing
+page's "Get in touch to subscribe" pricing card (see
+[`app/subscribe-actions.ts`](app/subscribe-actions.ts)) — no email is sent
+automatically, it's just saved for manual follow-up. View captured leads
+with:
+
+```bash
+npx prisma studio
+```
+
 ## Deploying
 
 The app is a standard Next.js app; SQLite is fine for a demo/pilot but for a

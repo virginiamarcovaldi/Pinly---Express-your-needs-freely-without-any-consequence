@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Postit } from "@/components/Postit";
+import { SubscribeForm } from "@/components/SubscribeForm";
 
 const HERO_NOTES: { color: "YELLOW" | "BLUE" | "PINK" | "GREEN"; text: string; time: string; rotation: string }[] = [
   { color: "YELLOW", text: "The math test was unfair.", time: "3m", rotation: "-rotate-3" },
@@ -159,12 +160,7 @@ export default function Home() {
                 ))}
               </ul>
 
-              <a
-                href="#contact"
-                className="mt-8 block text-center rounded-full bg-brand-orange text-white font-medium py-3 hover:bg-brand-orange-dark transition-colors"
-              >
-                Get in touch to subscribe
-              </a>
+              <SubscribeForm />
             </div>
             <div className="bg-brand-navy/5 px-8 py-4 text-xs text-slate-500 border-t border-brand-navy/10">
               Eligible for PNRR &quot;Scuola 4.0&quot; wellbeing and digitalization funds — most

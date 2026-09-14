@@ -103,3 +103,11 @@ model Reply {
   text      String
   createdAt DateTime @default(now())
 }
+
+// Landing-page "Get in touch to subscribe" pricing leads — school contacts
+// interested in a paid license, captured for manual follow-up.
+model Lead {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
