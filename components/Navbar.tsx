@@ -11,18 +11,32 @@ const TAB_LABELS: Record<BoardSlug, string> = {
   wellbeing: "Wellbeing",
 };
 
+function Badge({ count }: { count: number }) {
+  if (count <= 0) return null;
+  return (
+    <span className="ml-1.5 inline-flex items-center justify-center h-4 min-w-4 px-1 rounded-full bg-red-500 text-white text-[10px] font-bold leading-none">
+      {count > 9 ? "9+" : count}
+    </span>
+  );
+}
+
 export function Navbar({
   displayName,
   roleLabel,
   className,
   boardTabs,
+  unreadCount,
+  unreadHref,
 }: {
   displayName: string;
   roleLabel: string;
   className?: string | null;
   boardTabs: BoardSlug[];
+  unreadCount: number;
+  unreadHref: string;
 }) {
   const pathname = usePathname();
+  const isStudent = boardTabs.length > 1;
 
   return (
     <header className="border-b border-brand-navy/10 bg-white/70 backdrop-blur sticky top-0 z-10">
@@ -39,24 +53,28 @@ export function Navbar({
                 <Link
                   key={slug}
                   href={href}
-                  className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
+                  className={`flex items-center rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
                     active ? "bg-brand-navy text-white" : "text-brand-navy/70 hover:bg-brand-navy/5"
                   }`}
                 >
                   {TAB_LABELS[slug]}
+                  {href === unreadHref && <Badge count={unreadCount} />}
                 </Link>
               );
             })}
-            <Link
-              href="/my-board"
-              className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
-                pathname === "/my-board"
-                  ? "bg-brand-navy text-white"
-                  : "text-brand-navy/70 hover:bg-brand-navy/5"
-              }`}
-            >
-              My board
-            </Link>
+            {isStudent && (
+              <Link
+                href="/my-board"
+                className={`flex items-center rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
+                  pathname === "/my-board"
+                    ? "bg-brand-navy text-white"
+                    : "text-brand-navy/70 hover:bg-brand-navy/5"
+                }`}
+              >
+                My board
+                {"/my-board" === unreadHref && <Badge count={unreadCount} />}
+              </Link>
+            )}
           </nav>
         </div>
 

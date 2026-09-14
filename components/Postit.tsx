@@ -8,6 +8,7 @@ const COLOR_CLASSES: Record<NoteColor, string> = {
   ORANGE: "bg-orange-200 border-orange-300",
 };
 
+
 // Fixed rotation set (not random) so server and client render the same markup.
 const ROTATIONS = ["-rotate-2", "rotate-1", "-rotate-1", "rotate-2", "rotate-0"];
 
@@ -28,8 +29,12 @@ export function Postit({
 }) {
   return (
     <div
-      className={`${COLOR_CLASSES[color]} ${rotation} border shadow-md rounded-sm p-4 flex flex-col justify-between transition-transform hover:rotate-0 hover:scale-[1.02] ${className}`}
+      className={`relative ${COLOR_CLASSES[color]} ${rotation} border shadow-lg rounded-sm p-4 flex flex-col justify-between transition-transform hover:rotate-0 hover:scale-[1.02] ${className}`}
     >
+      <span
+        aria-hidden
+        className="absolute -top-1.5 left-1/2 -translate-x-1/2 h-3 w-3 rounded-full bg-red-500 shadow-[0_1px_2px_rgba(0,0,0,0.4)] ring-2 ring-red-700/30"
+      />
       {children}
     </div>
   );

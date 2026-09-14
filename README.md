@@ -15,9 +15,15 @@ Next.js, Prisma and SQLite.
 | **School Board** | the whole school | the **student representative** |
 | **Wellbeing Board** | the whole school | the **school counselor** |
 
-Every post-it is anonymous. Only the student who wrote it can see who
-replied — everyone else just sees "Anonymous" and the staff role that
-answered ("Teacher", "Student Rep", "Counselor").
+Every post-it is anonymous. A student only ever sees their **own** post-its
+(never other students') plus the replies to them, all on their personal
+["My board"](app/(app)/my-board/page.tsx) — the board pages themselves are
+write-only for students (just the composer). Staff see every post-it
+pinned to their board, always as "Anonymous", and can reply; a student can
+reply back on their own note to continue that conversation. Everyone else
+just sees "Anonymous" and the staff role that answered ("Teacher", "Student
+Rep", "Counselor"). A red badge on the nav shows unread replies/post-its
+since a user's last visit.
 
 ## Login
 
@@ -85,8 +91,8 @@ app/
   login/                   login/sign-up UI + server actions
   (app)/                   authenticated shell (nav, logout)
     layout.tsx
-    board/[type]/          Classroom / School / Wellbeing board pages
-    my-board/               everyone's personal "Received / Sent" pinboard
+    board/[type]/          composer for students, full reply feed for staff
+    my-board/               a student's own post-its + replies, on a cork board
 components/                 Postit, NoteCard, NewNoteForm, Navbar, LoginForm
 lib/                        auth/session, permissions, Prisma client, helpers
 prisma/                     schema, migrations, seed script

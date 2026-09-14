@@ -101,13 +101,19 @@ export function canPostToBoard(session: SessionPayload, board: BoardLike): boole
 }
 
 /**
- * Can this user reply inside a given note's thread? Only the staff role that
- * owns the board (teacher/student rep/counselor) can reply — students can
- * only pin new post-its, never reply, not even to their own note.
+ * Can this user reply inside a given note's thread? The staff role that owns
+ * the board (teacher/student rep/counselor) can reply to any note on it;
+ * a student can only reply to their own note, continuing the conversation
+ * with whoever answered — never to someone else's note.
  */
-export function canReplyToNote(session: SessionPayload, board: BoardLike): boolean {
-  if (session.role === "STUDENT") return false;
-  return canViewBoard(session, board);
+export function canReplyToNote(
+  session: SessionPayload,
+  board: BoardLike,
+  note: { authorId: string }
+): boolean {
+  if (!canViewBoard(session, board)) return false;
+  if (session.role === "STUDENT") return note.authorId === session.uid;
+  return true;
 }
 
 /** Which board slugs this role is allowed to navigate to. */

@@ -125,6 +125,13 @@ async function main() {
         text: "Thanks for flagging this — I'll add 10 extra minutes next time and review the pacing.",
       },
     });
+    await prisma.reply.create({
+      data: {
+        noteId: note1.id,
+        authorId: student1.id,
+        text: "That would really help, thank you for listening!",
+      },
+    });
 
     await prisma.note.create({
       data: {

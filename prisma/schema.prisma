@@ -67,6 +67,9 @@ model User {
   notes        Note[]       @relation("AuthoredNotes")
   replies      Reply[]
   createdAt    DateTime     @default(now())
+  // Last time this user checked their board/mailboard — drives the unread
+  // reply notification badge. Null means "never visited yet".
+  lastSeenAt   DateTime?
 }
 
 model Board {

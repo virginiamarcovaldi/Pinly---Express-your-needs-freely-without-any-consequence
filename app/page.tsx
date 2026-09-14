@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Postit } from "@/components/Postit";
+import { CorkBoard } from "@/components/CorkBoard";
 import { SubscribeForm } from "@/components/SubscribeForm";
 
 const HERO_NOTES: { color: "YELLOW" | "BLUE" | "PINK" | "GREEN"; text: string; time: string; rotation: string }[] = [
@@ -93,9 +94,9 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative bg-[#e9e2d3] rounded-2xl p-8 shadow-inner">
-            <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700 mb-4">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+          <CorkBoard>
+            <div className="flex items-center gap-2 text-xs font-semibold text-emerald-100 mb-4">
+              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
               LIVE BOARD
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -106,8 +107,8 @@ export default function Home() {
                 </Postit>
               ))}
             </div>
-            <p className="text-right text-xs text-slate-500 mt-4">42 pinned today</p>
-          </div>
+            <p className="text-right text-xs text-amber-50/80 mt-4">42 pinned today</p>
+          </CorkBoard>
         </section>
 
         <section id="boards" className="bg-white/60 border-y border-brand-navy/10">
