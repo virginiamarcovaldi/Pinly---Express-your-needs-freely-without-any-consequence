@@ -29,19 +29,37 @@ const BOARDS = [
   },
 ];
 
+const PRICING_FEATURES = [
+  "Anonymous student feedback",
+  "Three dedicated boards — classroom, school, wellbeing",
+  "Real-time replies from teachers, student reps & counselors",
+  "GDPR compliant & encrypted",
+];
+
 export default function Home() {
   return (
     <div className="flex-1 flex flex-col">
-      <header className="max-w-6xl w-full mx-auto px-6 py-6 flex items-center justify-between">
+      <header className="max-w-6xl w-full mx-auto px-6 py-6 flex items-center justify-between gap-4 flex-wrap">
         <span className="text-2xl font-serif italic font-bold text-brand-orange">
           Pinly<span className="text-brand-navy">.</span>
         </span>
-        <Link
-          href="/login"
-          className="rounded-full bg-brand-navy text-white text-sm font-medium px-5 py-2 hover:bg-brand-navy-light transition-colors"
-        >
-          Log in
-        </Link>
+        <nav className="flex items-center gap-6 text-sm font-medium text-brand-navy/70">
+          <a href="#boards" className="hover:text-brand-navy transition-colors">
+            How it works
+          </a>
+          <a href="#pricing" className="hover:text-brand-navy transition-colors">
+            Pricing
+          </a>
+          <a href="#contact" className="hover:text-brand-navy transition-colors">
+            Contact
+          </a>
+          <Link
+            href="/login"
+            className="rounded-full bg-brand-navy text-white text-sm font-medium px-5 py-2 hover:bg-brand-navy-light transition-colors"
+          >
+            Log in
+          </Link>
+        </nav>
       </header>
 
       <main className="flex-1">
@@ -107,6 +125,80 @@ export default function Home() {
                   <p className="text-sm text-slate-600">{board.description}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="pricing" className="max-w-6xl mx-auto px-6 py-16">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <h2 className="text-2xl font-bold text-brand-navy">Simple, honest pricing.</h2>
+            <p className="text-slate-600 mt-2">
+              A license schools pay for, at a price schools won&apos;t notice.
+            </p>
+          </div>
+
+          <div className="max-w-md mx-auto rounded-2xl border border-brand-navy/10 bg-white shadow-sm overflow-hidden">
+            <div className="p-8">
+              <span className="text-xs font-semibold uppercase tracking-wide text-brand-orange">
+                Annual license
+              </span>
+              <div className="mt-2 flex items-baseline gap-1">
+                <span className="text-4xl font-bold text-brand-navy">€1,350</span>
+                <span className="text-slate-500">/year</span>
+              </div>
+              <p className="text-sm text-slate-500 mt-1">Per school · Unlimited students</p>
+
+              <ul className="mt-6 space-y-3">
+                {PRICING_FEATURES.map((feature) => (
+                  <li key={feature} className="flex items-start gap-2 text-sm text-slate-600">
+                    <span className="mt-0.5 h-4 w-4 shrink-0 rounded-full bg-brand-orange/15 text-brand-orange flex items-center justify-center text-[10px] font-bold">
+                      ✓
+                    </span>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href="#contact"
+                className="mt-8 block text-center rounded-full bg-brand-orange text-white font-medium py-3 hover:bg-brand-orange-dark transition-colors"
+              >
+                Get in touch to subscribe
+              </a>
+            </div>
+            <div className="bg-brand-navy/5 px-8 py-4 text-xs text-slate-500 border-t border-brand-navy/10">
+              Eligible for PNRR &quot;Scuola 4.0&quot; wellbeing and digitalization funds — most
+              schools can activate Pinly at no extra cost to their budget.
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="bg-white/60 border-y border-brand-navy/10">
+          <div className="max-w-6xl mx-auto px-6 py-16">
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              <div>
+                <h2 className="text-2xl font-bold text-brand-navy">Contact us.</h2>
+                <p className="text-slate-600 mt-3 max-w-md">
+                  <span className="text-brand-orange font-medium">Pinly</span> gives students a
+                  voice. Help us amplify it — reach out to bring Pinly to your school.
+                </p>
+              </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <a
+                  href="mailto:info@pinly.it"
+                  className="rounded-xl border border-brand-orange/30 bg-white p-6 text-center hover:bg-brand-orange/5 transition-colors"
+                >
+                  <span className="block text-2xl mb-2">✉️</span>
+                  <span className="font-medium text-brand-navy">info@pinly.it</span>
+                </a>
+                <a
+                  href="tel:+393518474971"
+                  className="rounded-xl border border-brand-orange/30 bg-white p-6 text-center hover:bg-brand-orange/5 transition-colors"
+                >
+                  <span className="block text-2xl mb-2">📞</span>
+                  <span className="font-medium text-brand-navy">+39 351 84 74 971</span>
+                </a>
+              </div>
             </div>
           </div>
         </section>
